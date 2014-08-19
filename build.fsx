@@ -1,6 +1,8 @@
 // include Fake lib
 #r @"packages\FAKE\tools\FakeLib.dll"
 open Fake
+open System
+open Fake.AssemblyInfoFile
 
 RestorePackages()
 
@@ -8,6 +10,7 @@ type Project = { name: string;  version: string; authors: List<string>; descript
 let authors = ["Craig Smitham"]
 
 let version = "0.0.1";
+
 // The project name should be the same as the project directory
 let core= { 
     name = "HtmlTags.AspNet.Mvc"; 
@@ -50,14 +53,30 @@ let packagingRoot = "./packaging/"
 let projectBins =  projects |> List.map(fun p -> "./" @@ p.name @@ "/bin")
 let projectPackagingDirs =  projects |> List.map(fun p -> packagingRoot @@ p.name)
 
+let buildNumber = environVarOrDefault "APPVEYOR_BUILD_NUMBER" "0"
+let buildVersion = environVarOrDefault "APPVEYOR_BUILD_VERSION" "0.0.0.0"
+let packageVersion = ""
+let assemblyVersion = ""
+let assemblyFileVersion = ""
+
 // Targets
+
+
+
 Target "Clean" (fun _ -> 
    List.concat [projectBins; projectPackagingDirs; [testResultsDir; packagingRoot]] |> CleanDirs
 )
 
+Target "AssemblyInfo" (fun _ ->
+    CreateCSharpAssemblyInfo "./SolutionInfo.cs"
+      [ Attribute.Product core.name 
+        Attribute.Version assemblyVersion
+        Attribute.FileVersion assemblyFileVersion
+        Attribute.ComVisible false ]
+)
+
 Target "BuildApp" (fun _ ->
-   MSBuild null "Build" ["Configuration", buildMode] ["./HtmlTags.AspNet.Mvc.sln"]
-    |> Log "AppBuild-Output: "
+   MSBuild null "Build" ["Configuration", buildMode] ["./HtmlTags.AspNet.Mvc.sln"] |> Log "AppBuild-Output: "
 )
 
 
@@ -121,7 +140,8 @@ Target "CreatePackages" DoNothing
 Target "Default" DoNothing
 
 "Clean"
-    ==> "BuildApp"
+    ==> "AssemblyInfo"
+        ==> "BuildApp"
 
 "CreateCorePackage"
     ==> "CreatePackages"

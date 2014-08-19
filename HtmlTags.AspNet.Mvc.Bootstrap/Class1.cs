@@ -8,7 +8,7 @@ namespace HtmlTags.AspNet.Mvc.Bootstrap
         {
             Editors.Always.AddClass("form-controll");
             // Razor
-            // @Html.Editor(m => m.FirstName)
+            // @Html.Editor(m => m.FirstName).AddClass("le-custom")
             // <input class="form-control" ...
         }
     }
