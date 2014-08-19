@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>@project@</id>
+    <version>@build.number@</version>
+    <authors>@authors@</authors>
+    <owners>@authors@</owners>
+    <summary>@summary@</summary>
+    <licenseUrl>https://github.com/craigsmitham/HtmlTags.AspNet.Mvc/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/craigsmitham/HtmlTags.AspNet.Mvc</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>@description@</description>
+    <releaseNotes>@releaseNotes@</releaseNotes>
+    <copyright>Copyright Craig Smitham 2014</copyright>
+    <tags>HtmlTags MVC HTML Fubu Foundation Bootstrap</tags>
+    @dependencies@
+    @references@
+  </metadata>
+</package>

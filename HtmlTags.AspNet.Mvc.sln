@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{39B24E31-668B-4F80-8CA5-0354959B0566}"
+	ProjectSection(SolutionItems) = preProject
+		build.cmd = build.cmd
+		build.fsx = build.fsx
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{722581F4-22F3-4CEF-B371-0F9ADA6EDAE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frameworks", "Frameworks", "{2FC3882E-E2D0-4A69-B261-BB40D5525283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlTags.AspNet.Mvc", "HtmlTags.AspNet.Mvc\HtmlTags.AspNet.Mvc.csproj", "{57D7359A-B3E3-4371-ACD8-4DF8A48C7441}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlTags.AspNet.Mvc.Bootstrap", "HtmlTags.AspNet.Mvc.Bootstrap\HtmlTags.AspNet.Mvc.Bootstrap.csproj", "{8A96B484-F61F-4893-8FF3-AC1C9077A626}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlTags.AspNet.Mvc.Foundation", "HtmlTags.AspNet.Mvc.Foundation\HtmlTags.AspNet.Mvc.Foundation.csproj", "{60A0FBBE-5C80-4277-8E52-15246D60AF4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlTags.AspNet.Mvc.StructureMap", "HtmlTags.AspNet.Mvc.StructureMap\HtmlTags.AspNet.Mvc.StructureMap.csproj", "{90972D80-42B5-49C0-BAD3-941A9923CD81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{53E48E2E-2A53-4623-8466-77CC727E828C}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+		SolutionInfo.cs = SolutionInfo.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{04C558BC-BE04-49EC-BA16-9EDC5CC5C60D}"
+	ProjectSection(SolutionItems) = preProject
+		nuget\base.nuspec = nuget\base.nuspec
+		nuget\HtmlTags.AspNet.Mvc.nuspec = nuget\HtmlTags.AspNet.Mvc.nuspec
+		nuget\HtmlTags.AspNet.Mvc.StructureMap.nuspec = nuget\HtmlTags.AspNet.Mvc.StructureMap.nuspec
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57D7359A-B3E3-4371-ACD8-4DF8A48C7441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57D7359A-B3E3-4371-ACD8-4DF8A48C7441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57D7359A-B3E3-4371-ACD8-4DF8A48C7441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57D7359A-B3E3-4371-ACD8-4DF8A48C7441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A96B484-F61F-4893-8FF3-AC1C9077A626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A96B484-F61F-4893-8FF3-AC1C9077A626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A96B484-F61F-4893-8FF3-AC1C9077A626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A96B484-F61F-4893-8FF3-AC1C9077A626}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A0FBBE-5C80-4277-8E52-15246D60AF4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A0FBBE-5C80-4277-8E52-15246D60AF4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A0FBBE-5C80-4277-8E52-15246D60AF4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A0FBBE-5C80-4277-8E52-15246D60AF4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90972D80-42B5-49C0-BAD3-941A9923CD81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90972D80-42B5-49C0-BAD3-941A9923CD81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90972D80-42B5-49C0-BAD3-941A9923CD81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90972D80-42B5-49C0-BAD3-941A9923CD81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A96B484-F61F-4893-8FF3-AC1C9077A626} = {2FC3882E-E2D0-4A69-B261-BB40D5525283}
+		{60A0FBBE-5C80-4277-8E52-15246D60AF4E} = {2FC3882E-E2D0-4A69-B261-BB40D5525283}
+	EndGlobalSection
+EndGlobal
