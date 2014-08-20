@@ -153,4 +153,4 @@ Target "Default" DoNothing
 
 
 // start build
-RunTargetOrDefault "Default"
+RunTargetOrDefault (environVarOrDefault "target" "Default")
