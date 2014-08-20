@@ -6,15 +6,13 @@ open Fake.AssemblyInfoFile
 
 RestorePackages()
 
-type Project = { name: string;  version: string; authors: List<string>; description: string; summary: string; tags: string}
+type Project = { name: string;  authors: List<string>; description: string; summary: string; tags: string}
 let authors = ["Craig Smitham"]
 
-let version = "0.0.1";
 
 // The project name should be the same as the project directory
 let core= { 
     name = "HtmlTags.AspNet.Mvc"; 
-    version = version; 
     authors = authors; 
     summary = "";
     description = "HtmlTag toolkit for ASP.NET MVC";
@@ -22,7 +20,6 @@ let core= {
 
 let structureMap = { 
     name = "HtmlTags.AspNet.Mvc.StructureMap"; 
-    version = version;
     authors = authors; 
     summary = "";
     description = "StructureMap 3 IOC Integration for HtmlTags.AspNet.Mvc";
@@ -30,7 +27,6 @@ let structureMap = {
 
 let bootstrap = { 
     name = "HtmlTags.AspNet.Mvc.Bootstrap"; 
-    version = "0.3.2";  
     authors = authors; 
     summary = "";
     description = "";
@@ -38,7 +34,6 @@ let bootstrap = {
 
 let foundation = { 
     name = "HtmlTags.AspNet.Mvc.Foundation"; 
-    version = "0.5.0";  
     authors = authors; 
     summary = "";
     description = "";
@@ -54,15 +49,20 @@ let projectBins =  projects |> List.map(fun p -> "./" @@ p.name @@ "/bin")
 let projectPackagingDirs =  projects |> List.map(fun p -> packagingRoot @@ p.name)
 
 let buildNumber = environVarOrDefault "APPVEYOR_BUILD_NUMBER" "0"
+// APPVEYOR_BUILD_VERSION:  MAJOR.MINOR.PATCH.BUILD_NUMBER
 let buildVersion = environVarOrDefault "APPVEYOR_BUILD_VERSION" "0.0.0.0"
-let packageVersion = ""
-let assemblyVersion = ""
-let assemblyFileVersion = ""
+let majorMinorPatch = split '.' buildVersion  |> Seq.take(3) |> Seq.toArray |> (fun versions -> String.Join(".", versions))
+let assemblyVersion = majorMinorPatch
+let assemblyFileVersion = buildVersion
+let preReleaseVersion = getBuildParamOrDefault "prerelease" ("-ci" + buildNumber)
+let isMajorRelease = getBuildParam "release" <> ""
+let packageVersion = 
+    match isMajorRelease with
+    | true -> majorMinorPatch
+    | false -> majorMinorPatch + preReleaseVersion
+    
 
 // Targets
-
-
-
 Target "Clean" (fun _ -> 
    List.concat [projectBins; projectPackagingDirs; [testResultsDir; packagingRoot]] |> CleanDirs
 )
@@ -88,14 +88,9 @@ let createNuGetPackage (project:Project) (customParams: (NuGetParams -> NuGetPar
     let packagingDir = (packagingRoot @@ project.name @@ "/");
     let net45Dir =  (packagingDir @@ "lib/net45")
     let buildDir = ("./" @@ project.name @@ "/bin")
-    let nugetLocalFeed = environVar "NuGetLocalFeed" 
-    let remoteUrl = getBuildParam "nugeturl" 
-    let nugetKey = getBuildParam "nugetkey" 
-    let publish = nugetLocalFeed <> "" || remoteUrl <> "" && nugetKey <> ""
-    let publishUrl =
-        if remoteUrl <> "" && nugetKey <> "" then remoteUrl
-        else nugetLocalFeed
-        
+    let publishUrl = getBuildParamOrDefault "publishurl" (environVarOrDefault "publishurl" "")
+    let apiKey = getBuildParamOrDefault "apikey" (environVarOrDefault "apikey" "")
+
     CleanDir net45Dir
     CopyFile net45Dir (buildDir @@ "Release/" @@ project.name + ".dll")
     CopyFiles packagingDir ["LICENSE.txt"; "README.md"]
@@ -109,14 +104,14 @@ let createNuGetPackage (project:Project) (customParams: (NuGetParams -> NuGetPar
             OutputPath = packagingRoot 
             Summary = project.summary 
             WorkingDir = packagingDir
-            Version = project.version 
+            Version = packageVersion
             Tags = project.tags
             PublishUrl = publishUrl
-            AccessKey = nugetKey
-            Publish = publish } 
+            AccessKey = apiKey 
+            Publish = publishUrl <> "" } 
             |>  match customParams with
                 | Some(customParams) -> customParams
-                | None -> (fun p -> p))) "./nuget/base.nuspec"
+                | None -> (fun p -> p))) "./base.nuspec"
 
 
 Target "CreateCorePackage" (fun _ -> 
@@ -136,6 +131,7 @@ Target "CreateStructureMapPackage" (fun _ ->
                      "FubuMVC.StructureMap3", GetPackageVersion packagesDir "FubuMVC.StructureMap3"] }))
 )
 
+Target "ContinuousIntegration" DoNothing
 Target "CreatePackages" DoNothing
 Target "Default" DoNothing
 
@@ -143,11 +139,17 @@ Target "Default" DoNothing
     ==> "AssemblyInfo"
         ==> "BuildApp"
 
-"CreateCorePackage"
-    ==> "CreatePackages"
+"BuildApp" 
+    ==>"CreateCorePackage"
+        ==> "CreatePackages"
 
-"CreateStructureMapPackage"
-    ==> "CreatePackages"
+"BuildApp" 
+    ==>"CreateStructureMapPackage"
+        ==> "CreatePackages"
+
+"BuildApp" 
+    ==>"CreatePackages"
+        ==> "ContinuousIntegration" 
 
 
 // start build
