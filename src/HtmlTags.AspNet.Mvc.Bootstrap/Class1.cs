@@ -6,14 +6,14 @@ namespace HtmlTags.AspNet.Mvc.Bootstrap
     {
         public BootstrapHtmlConventions()
         {
-            Editors.Always.AddClass("form-controll");
+            Editors.Always.AddClass("form-control");
             // Razor
             // @Html.Editor(m => m.FirstName).AddClass("le-custom")
             // <input class="form-control" ...
         }
     }
 
-    public static class ConfigurationHelper
+    public static class ConfigurationExtensions
     {
         public static void UseBootstrapConventions(this HtmlTagsConfiguration configuration)
         {

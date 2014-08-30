@@ -24,6 +24,8 @@ namespace HtmlTags.AspNet.Mvc.StructureMap
                 scan.AssemblyContainingType<ITagGeneratorFactory>();
                 scan.AssemblyContainingType<IFieldAccessService>();
                 scan.AssemblyContainingType<StructureMapFubuRegistry>();
+
+                // Is this needed, or does "TheCallingAssembly()" suffice?
                 scan.AssemblyContainingType<HtmlTagsConfiguration>();
 
                 scan.TheCallingAssembly();
@@ -38,6 +40,7 @@ namespace HtmlTags.AspNet.Mvc.StructureMap
             {
                 c.Type<RequestPropertyValueSource>();
             });
+
             For<ITagRequestActivator>().AddInstances(c =>
             {
                 c.Type<ElementRequestActivator>();

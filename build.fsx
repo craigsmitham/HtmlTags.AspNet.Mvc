@@ -45,21 +45,19 @@ let buildMode = getBuildParamOrDefault "buildMode" "Release"
 let testResultsDir = "./testresults"
 let packagesDir = "./packages/"
 let packagingRoot = "./packaging/"
-let projectBins =  projects |> List.map(fun p -> "./" @@ p.name @@ "/bin")
+let projectBins =  projects |> List.map(fun p -> "./src/" @@ p.name @@ "/bin")
 let projectPackagingDirs =  projects |> List.map(fun p -> packagingRoot @@ p.name)
 
 let buildNumber = environVarOrDefault "APPVEYOR_BUILD_NUMBER" "0"
 // APPVEYOR_BUILD_VERSION:  MAJOR.MINOR.PATCH.BUILD_NUMBER
-let buildVersion = environVarOrDefault "APPVEYOR_BUILD_VERSION" "0.0.0.0"
+let buildVersionDefault = "0.1.1.0"
+let buildVersion = environVarOrDefault "APPVEYOR_BUILD_VERSION" buildVersionDefault
 let majorMinorPatch = split '.' buildVersion  |> Seq.take(3) |> Seq.toArray |> (fun versions -> String.Join(".", versions))
 let assemblyVersion = majorMinorPatch
 let assemblyFileVersion = buildVersion
-let preReleaseVersion = getBuildParamOrDefault "prerelease" ("-ci" + buildNumber)
-let isMajorRelease = getBuildParam "release" <> ""
-let packageVersion = 
-    match isMajorRelease with
-    | true -> majorMinorPatch
-    | false -> majorMinorPatch + preReleaseVersion
+let environment = environVarOrDefault "CI" "local"
+let isCI= environment <> "local"
+let packageVersion = if isCI then majorMinorPatch + "-ci" + buildNumber else  majorMinorPatch
     
 
 // Targets
@@ -87,9 +85,9 @@ let withCustomParams (configuration: NuGetParams -> NuGetParams) =
 let createNuGetPackage (project:Project) (customParams: (NuGetParams -> NuGetParams) option) = 
     let packagingDir = (packagingRoot @@ project.name @@ "/");
     let net45Dir =  (packagingDir @@ "lib/net45")
-    let buildDir = ("./" @@ project.name @@ "/bin")
-    let publishUrl = getBuildParamOrDefault "publishurl" (environVarOrDefault "publishurl" "")
-    let apiKey = getBuildParamOrDefault "apikey" (environVarOrDefault "apikey" "")
+    let buildDir = ("./src/" @@ project.name @@ "/bin")
+    let publishUrl = getBuildParamOrDefault "publishurl" (environVarOrDefault "nugetpublishurl" "")
+    let apiKey = getBuildParamOrDefault "apikey" (environVarOrDefault "nugetapikey" "")
 
     CleanDir net45Dir
     CopyFile net45Dir (buildDir @@ "Release/" @@ project.name + ".dll")
@@ -119,7 +117,9 @@ Target "CreateCorePackage" (fun _ ->
         (withCustomParams(fun p -> 
             {p with 
                 Dependencies =
-                    ["FubuMVC.Core.UI", GetPackageVersion packagesDir "FubuMVC.Core.UI"] }))
+                    ["Microsoft.AspNet.Mvc", GetPackageVersion packagesDir "Microsoft.AspNet.Mvc"
+                     "Microsoft.AspNet.Mvc.Futures", GetPackageVersion packagesDir "Microsoft.AspNet.Mvc.Futures"
+                     "FubuMVC.Core.UI", GetPackageVersion packagesDir "FubuMVC.Core.UI"] }))
 )
 
 Target "CreateStructureMapPackage" (fun _ -> 
@@ -151,6 +151,5 @@ Target "Default" DoNothing
     ==>"CreatePackages"
         ==> "ContinuousIntegration" 
 
-
-// start build
-RunTargetOrDefault (environVarOrDefault "target" "Default")
+// Start the build
+RunTargetOrDefault "Default"
