@@ -15,9 +15,6 @@ namespace HtmlTags.AspNet.Mvc
 
         public HtmlConventionLibrary Conventions { get; private set; }
 
-        public void AddConventions(HtmlConventionRegistry conventions)
-        {
-            Conventions.Import(conventions.Library);
-        }
+        
     }
 }

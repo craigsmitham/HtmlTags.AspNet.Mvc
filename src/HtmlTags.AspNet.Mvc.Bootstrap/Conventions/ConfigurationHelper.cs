@@ -1,4 +1,5 @@
 ﻿using System;
+using HtmlTags.AspNet.Mvc.Conventions;
 
 namespace HtmlTags.AspNet.Mvc.Bootstrap.Conventions
 {
