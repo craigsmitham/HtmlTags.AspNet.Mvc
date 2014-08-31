@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace HtmlTags.AspNet.Mvc.Foundation
+﻿namespace HtmlTags.AspNet.Mvc.Foundation
 {
     public static class TooltipHelpers
     {
@@ -11,6 +9,7 @@ namespace HtmlTags.AspNet.Mvc.Foundation
                 : position == Position.Top ? "tip-top"
                 : position == Position.Left ? "tip-left"
                 : position == Position.Right ? "tip-right"
+                // Default
                 : string.Empty;
 
             return tag

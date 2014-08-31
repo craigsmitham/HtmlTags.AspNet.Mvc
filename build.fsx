@@ -16,28 +16,28 @@ let core= {
     authors = authors; 
     summary = "";
     description = "HtmlTag toolkit for ASP.NET MVC";
-    tags = "" }
+    tags = "htmltags aspnet mvc mvc5 aspnetmvc" }
 
 let structureMap = { 
     name = "HtmlTags.AspNet.Mvc.StructureMap"; 
     authors = authors; 
     summary = "";
     description = "StructureMap 3 IOC Integration for HtmlTags.AspNet.Mvc";
-    tags = "" }
+    tags = core.tags + " structuremap structuremap3" }
 
 let bootstrap = { 
     name = "HtmlTags.AspNet.Mvc.Bootstrap"; 
     authors = authors; 
     summary = "";
-    description = "";
-    tags = ""}
+    description = "ASP.NET MVC helpers and conventions for Twitter Bootstrap using HtmlTags.AspNet.Mvc";
+    tags = core.tags + " bootstrap twitter bootstrap3"}
 
 let foundation = { 
     name = "HtmlTags.AspNet.Mvc.Foundation"; 
     authors = authors; 
-    summary = "";
+    summary = "HtmlTags AspNet Mvc AspNetMvc Foundation ZurbFoundation Zurb";
     description = "ASP.NET MVC Helpers and conventions for ZURB Foundation using HtmlTags.AspNet.Mvc";
-    tags = "" }
+    tags = core.tags + " zurb foundation foundation5" }
 
 let projects = [ core; structureMap; bootstrap; foundation ]
 
@@ -128,12 +128,19 @@ Target "CreateStructureMapPackage" (fun _ ->
             {p with 
                 Dependencies =
                     ["HtmlTags.AspNet.Mvc", packageVersion 
-                     "FubuMVC.Core.UI", GetPackageVersion packagesDir "FubuMVC.Core.UI"
                      "FubuMVC.StructureMap3", GetPackageVersion packagesDir "FubuMVC.StructureMap3"] }))
 )
 
 Target "CreateFoundationPackage" (fun _ -> 
     createNuGetPackage foundation 
+        (withCustomParams(fun p -> 
+            {p with 
+                Dependencies =
+                    ["HtmlTags.AspNet.Mvc", packageVersion] }))
+)
+
+Target "CreateBootstrapPackage" (fun _ -> 
+    createNuGetPackage bootstrap 
         (withCustomParams(fun p -> 
             {p with 
                 Dependencies =
@@ -159,6 +166,11 @@ Target "Default" DoNothing
 "BuildApp" 
     ==>"CreateFoundationPackage"
         ==> "CreatePackages"
+
+"BuildApp" 
+    ==>"CreateBootstrapPackage"
+        ==> "CreatePackages"
+
 
 
 "BuildApp" 

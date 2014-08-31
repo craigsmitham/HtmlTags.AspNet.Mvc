@@ -12,7 +12,7 @@
     <description>@description@</description>
     <releaseNotes>@releaseNotes@</releaseNotes>
     <copyright>Copyright Craig Smitham 2014</copyright>
-    <tags>HtmlTags MVC HTML Fubu Foundation Bootstrap</tags>
+    <tags>@tags@</tags>
     @dependencies@
     @references@
   </metadata>

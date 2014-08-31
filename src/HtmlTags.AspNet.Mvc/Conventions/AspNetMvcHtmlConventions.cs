@@ -6,10 +6,12 @@ using FubuMVC.Core.UI;
 
 namespace HtmlTags.AspNet.Mvc.Conventions
 {
-    public class DefaultAspNetMvcHtmlConventions : DefaultHtmlConventions
+    public class AspNetMvcHtmlConventions : DefaultHtmlConventions
     {
-        public DefaultAspNetMvcHtmlConventions()
+        public AspNetMvcHtmlConventions(Action<AspNetMvcHtmlConventions> configurator = null)
         {
+            if (configurator != null) configurator(this);
+
             // Labels
             Labels.ModifyForAttribute<DisplayAttribute>((t, a) => t.Text(a.Name));
             Labels.IfPropertyIs<bool>()
@@ -39,8 +41,6 @@ namespace HtmlTags.AspNet.Mvc.Conventions
 
             Editors.IfPropertyIs<decimal?>().ModifyWith(m =>
                 m.CurrentTag.Data("pattern", "9{1,9}.99").Data("placeholder", "0.00"));
-
-
 
             // Password Conventions
             Editors.If(er => er.Accessor.Name.Contains("Password")).Attr("type", "password");

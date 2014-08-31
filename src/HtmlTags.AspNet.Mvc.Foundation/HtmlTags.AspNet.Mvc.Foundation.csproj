@@ -89,8 +89,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conventions\ConfigurationHelper.cs" />
     <Compile Include="FormHelpers.cs" />
-    <Compile Include="FoundationHtmlTagConventions.cs" />
+    <Compile Include="Conventions\FoundationHtmlTagConventions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TooltipHelpers.cs" />
   </ItemGroup>
