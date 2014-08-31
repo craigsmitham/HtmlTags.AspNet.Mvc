@@ -36,7 +36,7 @@ let foundation = {
     name = "HtmlTags.AspNet.Mvc.Foundation"; 
     authors = authors; 
     summary = "";
-    description = "";
+    description = "ASP.NET MVC Helpers and conventions for ZURB Foundation using HtmlTags.AspNet.Mvc";
     tags = "" }
 
 let projects = [ core; structureMap; bootstrap; foundation ]
@@ -127,8 +127,17 @@ Target "CreateStructureMapPackage" (fun _ ->
         (withCustomParams(fun p -> 
             {p with 
                 Dependencies =
-                    ["FubuMVC.Core.UI", GetPackageVersion packagesDir "FubuMVC.Core.UI"
+                    ["HtmlTags.AspNet.Mvc", packageVersion 
+                     "FubuMVC.Core.UI", GetPackageVersion packagesDir "FubuMVC.Core.UI"
                      "FubuMVC.StructureMap3", GetPackageVersion packagesDir "FubuMVC.StructureMap3"] }))
+)
+
+Target "CreateFoundationPackage" (fun _ -> 
+    createNuGetPackage foundation 
+        (withCustomParams(fun p -> 
+            {p with 
+                Dependencies =
+                    ["HtmlTags.AspNet.Mvc", packageVersion] }))
 )
 
 Target "ContinuousIntegration" DoNothing
@@ -146,6 +155,11 @@ Target "Default" DoNothing
 "BuildApp" 
     ==>"CreateStructureMapPackage"
         ==> "CreatePackages"
+
+"BuildApp" 
+    ==>"CreateFoundationPackage"
+        ==> "CreatePackages"
+
 
 "BuildApp" 
     ==>"CreatePackages"

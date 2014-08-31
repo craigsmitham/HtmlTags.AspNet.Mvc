@@ -15,6 +15,16 @@ namespace HtmlTags.AspNet.Mvc
             return generator.InputFor(expression, model: helper.ViewData.Model);
         }
 
+        public static HtmlTag InputWithPlaceholder<T>(this HtmlHelper<T> helper,
+           Expression<Func<T, object>> expression)
+           where T : class
+        {
+            var generator = GetGenerator<T>();
+            // Use label conventions to get placeholder text
+            var placeholderText = Label(helper, expression).Text();
+            return generator.InputFor(expression, model: helper.ViewData.Model).Attr("placeholder", placeholderText);
+        }
+
         public static HtmlTag Label<T>(this HtmlHelper<T> helper,
             Expression<Func<T, object>> expression)
             where T : class

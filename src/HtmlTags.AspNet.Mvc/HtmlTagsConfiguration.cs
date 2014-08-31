@@ -1,4 +1,6 @@
-﻿using HtmlTags.Conventions;
+﻿using System;
+using FubuMVC.Core.UI;
+using HtmlTags.Conventions;
 
 namespace HtmlTags.AspNet.Mvc
 {
@@ -12,5 +14,14 @@ namespace HtmlTags.AspNet.Mvc
         }
 
         public HtmlConventionLibrary Conventions { get; private set; }
+
+        public void AddConventions(HtmlConventionRegistry conventions,
+            Action<HtmlConventionRegistry> configuration = null)
+        {
+            if (configuration != null)
+                configuration(conventions);
+
+            Conventions.Import(conventions.Library);
+        }
     }
 }

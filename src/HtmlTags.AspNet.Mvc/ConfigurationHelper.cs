@@ -1,12 +1,13 @@
-﻿using HtmlTags.AspNet.Mvc.Conventions;
+﻿using System;
+using FubuMVC.Core.UI;
 
 namespace HtmlTags.AspNet.Mvc
 {
     public static class ConfigurationHelper
     {
-        public static void UseDefaultAspNetMvcHtmlConventions(this HtmlTagsConfiguration configuration)
+        public static void UseDefaultAspNetMvcHtmlConventions(this HtmlTagsConfiguration configuration, Action<HtmlConventionRegistry> conventionConfiguration = null)
         {
-            configuration.Conventions.Import(new DefaultAspNetMvcHtmlConventions().Library);
+            configuration.AddConventions(new DefaultHtmlConventions(), conventionConfiguration);
         }
     }
 }

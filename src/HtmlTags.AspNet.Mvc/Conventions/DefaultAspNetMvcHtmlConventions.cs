@@ -51,7 +51,6 @@ namespace HtmlTags.AspNet.Mvc.Conventions
             }).Attr("type", "password");
 
             Editors.Modifier<EnumDropDownModifier>();
-
         }
     }
 }
