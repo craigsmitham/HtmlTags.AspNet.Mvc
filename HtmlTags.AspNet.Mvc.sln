@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlTags.AspNet.Mvc.Foundat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{D73DC280-8E0D-486B-9161-DB48AB2A23DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcWebsite", "examples\MvcWebsite\MvcWebsite.csproj", "{64A560FB-3F34-460A-AFFA-0F59B060655D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,8 +48,15 @@ Global
 		{60A0FBBE-5C80-4277-8E52-15246D60AF4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60A0FBBE-5C80-4277-8E52-15246D60AF4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60A0FBBE-5C80-4277-8E52-15246D60AF4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64A560FB-3F34-460A-AFFA-0F59B060655D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A560FB-3F34-460A-AFFA-0F59B060655D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64A560FB-3F34-460A-AFFA-0F59B060655D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64A560FB-3F34-460A-AFFA-0F59B060655D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{64A560FB-3F34-460A-AFFA-0F59B060655D} = {D73DC280-8E0D-486B-9161-DB48AB2A23DD}
 	EndGlobalSection
 EndGlobal

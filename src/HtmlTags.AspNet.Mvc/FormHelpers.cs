@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using FubuCore.Reflection;
 using FubuMVC.Core.UI.Elements;
-using HtmlTags.AspNet.Mvc.Conventions;
 using HtmlTags.Conventions;
 using ElementConstants = HtmlTags.AspNet.Mvc.Conventions.ElementConstants;
 
@@ -80,35 +78,20 @@ namespace HtmlTags.AspNet.Mvc
             return tag;
         }
 
-        private class DefaultFormBlockBuilder : IFormBlockBuilder
-        {
-            public HtmlTag Build(bool hasErrors, HtmlTag block, HtmlTag label, HtmlTag input, HtmlTag validaton)
-            {
-                return block.Append(label).Append(input).Append(validaton);
-            }
-        }
-
-        public class BootstrapFormBlockBuilder : IFormBlockBuilder
-        {
-            public HtmlTag Build(bool hasErrors, HtmlTag block, HtmlTag label, HtmlTag input, HtmlTag validaton)
-            {
-                return block.Append(label).Append(input).Append(validaton);
-            }
-        }
-
-
-
 
         public static HtmlTag FormBlock<T>(this HtmlHelper<T> htmlHelper, Expression<Func<T, object>> expression,
-           IFormBlockBuilder formBlockBuilder = null,
            Action<HtmlTag> blockTagConfiguraiton = null,
            Action<HtmlTag> labelTagConfiguration = null,
            Action<HtmlTag> inputTagConfiguration = null,
-           Action<HtmlTag> validationTagConfiguration = null) where T : class
+           Action<HtmlTag> validationTagConfiguration = null,
+           IFormBlockBuilder formBlockBuilder = null
+            ) where T : class
         {
-            formBlockBuilder = formBlockBuilder ?? new DefaultFormBlockBuilder();
+            formBlockBuilder = formBlockBuilder ?? HtmlTagsConfiguration.Configuration.DefaultFormBlockBuilderFactory();
 
-            var block = new HtmlTag("div", blockTagConfiguraiton);
+            var block = new HtmlTag("div");
+            if (blockTagConfiguraiton != null)
+                blockTagConfiguraiton(block);
 
             var validation = htmlHelper.Validator(expression);
             var hasErrors = String.IsNullOrEmpty(validation.Text());
@@ -131,11 +114,5 @@ namespace HtmlTags.AspNet.Mvc
             var generator = DependencyResolver.Current.GetService<IElementGenerator<T>>();
             return generator;
         }
-    }
-
-
-    public interface IFormBlockBuilder
-    {
-        HtmlTag Build(bool hasErrors, HtmlTag block, HtmlTag label, HtmlTag input, HtmlTag validaton);
     }
 }

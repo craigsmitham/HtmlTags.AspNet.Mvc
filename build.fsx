@@ -50,7 +50,7 @@ let projectPackagingDirs =  projects |> List.map(fun p -> packagingRoot @@ p.nam
 
 let buildNumber = environVarOrDefault "APPVEYOR_BUILD_NUMBER" "0"
 // APPVEYOR_BUILD_VERSION:  MAJOR.MINOR.PATCH.BUILD_NUMBER
-let buildVersionDefault = "0.1.2.0"
+let buildVersionDefault = "0.1.5.0"
 let buildVersion = environVarOrDefault "APPVEYOR_BUILD_VERSION" buildVersionDefault
 let majorMinorPatch = split '.' buildVersion  |> Seq.take(3) |> Seq.toArray |> (fun versions -> String.Join(".", versions))
 let assemblyVersion = majorMinorPatch
@@ -106,6 +106,7 @@ let createNuGetPackage (project:Project) (customParams: (NuGetParams -> NuGetPar
             Tags = project.tags
             PublishUrl = publishUrl
             AccessKey = apiKey 
+            SymbolPackage = NugetSymbolPackage.Nuspec
             Publish = publishUrl <> "" } 
             |>  match customParams with
                 | Some(customParams) -> customParams

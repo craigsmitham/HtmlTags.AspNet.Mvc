@@ -103,8 +103,10 @@
     <Compile Include="Conventions\AspNetMvcHtmlConventions.cs" />
     <Compile Include="Conventions\ElementConstants.cs" />
     <Compile Include="Conventions\EnumDropDownModifier.cs" />
+    <Compile Include="DefaultFormBlockBuilder.cs" />
     <Compile Include="FormHelpers.cs" />
     <Compile Include="HtmlTagsConfiguration.cs" />
+    <Compile Include="IFormBlockBuilder.cs" />
     <Compile Include="LinkHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

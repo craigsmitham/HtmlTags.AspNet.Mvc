@@ -1,0 +1,19 @@
+﻿@using HtmlTags.AspNet.Mvc
+@model MvcWebsite.Controllers.TestViewModel 
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>title</title>
+    </head>
+    <body>
+        <div>
+              @Html.FormBlock(m => m.HelloWorld)
+        </div>
+    </body>
+</html>

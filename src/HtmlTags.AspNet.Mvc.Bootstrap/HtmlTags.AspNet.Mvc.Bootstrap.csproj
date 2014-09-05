@@ -90,8 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conventions\BootstrapHtmlConventions.cs" />
-    <Compile Include="Conventions\ConfigurationHelper.cs" />
-    <Compile Include="FormHelpers.cs" />
+    <Compile Include="Conventions\BootstrapConfigurationHelper.cs" />
+    <Compile Include="BootstrapFormBlockBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

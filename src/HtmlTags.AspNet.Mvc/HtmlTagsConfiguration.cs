@@ -1,4 +1,5 @@
-﻿using HtmlTags.Conventions;
+﻿using System;
+using HtmlTags.Conventions;
 
 namespace HtmlTags.AspNet.Mvc
 {
@@ -9,8 +10,10 @@ namespace HtmlTags.AspNet.Mvc
         private HtmlTagsConfiguration()
         {
             Conventions = new HtmlConventionLibrary();
+            DefaultFormBlockBuilderFactory = () => new DefaultFormBlockBuilder();
         }
 
         public HtmlConventionLibrary Conventions { get; private set; }
+        public Func<IFormBlockBuilder> DefaultFormBlockBuilderFactory { get; set; }
     }
 }
