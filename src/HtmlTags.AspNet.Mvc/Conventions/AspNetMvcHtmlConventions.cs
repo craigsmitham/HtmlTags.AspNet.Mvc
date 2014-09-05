@@ -3,11 +3,26 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using FubuCore.Reflection;
 using FubuMVC.Core.UI;
+using FubuMVC.Core.UI.Elements;
 
 namespace HtmlTags.AspNet.Mvc.Conventions
 {
     public class AspNetMvcHtmlConventions : DefaultHtmlConventions
     {
+        protected ElementCategoryExpression Validators
+        {
+            get
+            {
+                var builderSet = Library
+                    .For<ElementRequest>()
+                    .Category("Validator")
+                    .Defaults;
+                return new ElementCategoryExpression(builderSet);
+            }
+        }
+
+
+
         public AspNetMvcHtmlConventions(Action<AspNetMvcHtmlConventions> configurator = null)
         {
             if (configurator != null) configurator(this);
