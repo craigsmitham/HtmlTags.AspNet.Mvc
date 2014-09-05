@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 
-namespace HtmlTags.AspNet.Mvc.Foundation
+namespace HtmlTags.AspNet.Mvc.Bootstrap
 {
     public static class FormHelpers
     {
@@ -12,11 +12,11 @@ namespace HtmlTags.AspNet.Mvc.Foundation
             Action<HtmlTag> inputTagConfiguration = null,
             Action<HtmlTag> validationTagConfiguration = null) where T : class
         {
-            return htmlHelper.FormBlock(expression, new FoundationFormBlockBuilder(), blockTagConfiguraiton,
+            return htmlHelper.FormBlock(expression, new BootstrapFormBlockBuilder(), blockTagConfiguraiton,
                 labelTagConfiguration, inputTagConfiguration, validationTagConfiguration);
         }
 
-        private class FoundationFormBlockBuilder : IFormBlockBuilder
+        private class BootstrapFormBlockBuilder : IFormBlockBuilder
         {
             public HtmlTag Build(bool hasErrors, HtmlTag block, HtmlTag label, HtmlTag input, HtmlTag validaton)
             {

@@ -15,17 +15,17 @@ namespace HtmlTags.AspNet.Mvc.Conventions
             {
                 var builderSet = Library
                     .For<ElementRequest>()
-                    .Category("Validator")
+                    .Category(ElementConstants.FormValidators)
                     .Defaults;
+
                 return new ElementCategoryExpression(builderSet);
             }
         }
 
-
-
         public AspNetMvcHtmlConventions(Action<AspNetMvcHtmlConventions> configurator = null)
         {
             if (configurator != null) configurator(this);
+
 
             // Labels
             Labels.ModifyForAttribute<DisplayAttribute>((t, a) => t.Text(a.Name));

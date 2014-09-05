@@ -1,6 +1,4 @@
-﻿using System;
-using FubuMVC.Core.UI;
-using HtmlTags.Conventions;
+﻿using HtmlTags.Conventions;
 
 namespace HtmlTags.AspNet.Mvc
 {
@@ -14,7 +12,5 @@ namespace HtmlTags.AspNet.Mvc
         }
 
         public HtmlConventionLibrary Conventions { get; private set; }
-
-        
     }
 }

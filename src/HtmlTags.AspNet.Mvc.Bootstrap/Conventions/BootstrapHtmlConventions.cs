@@ -9,6 +9,8 @@ namespace HtmlTags.AspNet.Mvc.Bootstrap.Conventions
         {
             if (configurator != null)
                 configurator(this);
+
+            Editors.Always.AddClass("form-control");
         }
     }
 }

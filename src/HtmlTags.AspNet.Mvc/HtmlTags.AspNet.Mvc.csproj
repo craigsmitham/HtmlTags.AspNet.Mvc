@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Conventions\ConfigurationHelper.cs" />
     <Compile Include="Conventions\AspNetMvcHtmlConventions.cs" />
+    <Compile Include="Conventions\ElementConstants.cs" />
     <Compile Include="Conventions\EnumDropDownModifier.cs" />
     <Compile Include="FormHelpers.cs" />
     <Compile Include="HtmlTagsConfiguration.cs" />
