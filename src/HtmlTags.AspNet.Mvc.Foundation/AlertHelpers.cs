@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -62,17 +63,15 @@ namespace HtmlTags.AspNet.Mvc.Foundation
 
         private static HtmlTag Alert(this HtmlHelper htmlHelper, string alertClass, string alertText)
         {
-            return htmlHelper.Alert(alertClass).Text(alertText);
+            return String.IsNullOrWhiteSpace(alertText) ? new NoTag() : htmlHelper.Alert(alertClass).Text(alertText);
         }
 
         private static HtmlTag Alert(this HtmlHelper htmlHelper, string alertClass, List<string> alertMessages)
         {
-            var alert = htmlHelper.Alert(alertClass);
-            if (alertMessages != null && alertMessages.Any())
-            {
-                alert.Append("ul", ul => alertMessages.ForEach(m => ul.Append("li", li => li.AppendHtml(m))));
-            }
-            return alert;
+            return alertMessages != null && alertMessages.Any()
+                ? htmlHelper.Alert(alertClass)
+                    .Append("ul", ul => alertMessages.ForEach(m => ul.Append("li", li => li.AppendHtml(m))))
+                : new NoTag();
         }
 
         private static HtmlTag Alert(this HtmlHelper htmlHelper, string alertClass)
