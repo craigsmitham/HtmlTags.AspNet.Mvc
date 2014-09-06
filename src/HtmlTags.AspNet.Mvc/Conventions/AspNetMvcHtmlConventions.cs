@@ -27,6 +27,8 @@ namespace HtmlTags.AspNet.Mvc.Conventions
             if (configurator != null) configurator(this);
 
 
+            Editors.Always.ModifyWith(er => er.CurrentTag.Id(er.ElementId));
+
             // Labels
             Labels.ModifyForAttribute<DisplayAttribute>((t, a) => t.Text(a.Name));
             Labels.IfPropertyIs<bool>()
@@ -64,6 +66,7 @@ namespace HtmlTags.AspNet.Mvc.Conventions
                 var attr = er.Accessor.GetAttribute<DataTypeAttribute>();
                 return attr != null && attr.DataType == DataType.Password;
             }).Attr("type", "password");
+
 
             Editors.Modifier<EnumDropDownModifier>();
         }
