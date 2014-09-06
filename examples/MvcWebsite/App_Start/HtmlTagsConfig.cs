@@ -9,7 +9,10 @@ namespace MvcWebsite
         public static void Configure(HtmlTagsConfiguration config)
         {
             config.UseDefaultHtmlConventions();
-            config.UseFoundationConventions();
+            config.UseFoundationConventions(c =>
+            {
+                c.Alerts.Always.AddClass("rounded");
+            });
         }
     }
 }

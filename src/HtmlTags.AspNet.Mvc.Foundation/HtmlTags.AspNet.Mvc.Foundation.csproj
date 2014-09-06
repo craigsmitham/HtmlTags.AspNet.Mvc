@@ -89,9 +89,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlertHelpers.cs" />
     <Compile Include="Conventions\ConfigurationHelper.cs" />
-    <Compile Include="FormHelpers.cs" />
+    <Compile Include="Conventions\ElementConstants.cs" />
+    <Compile Include="Conventions\FoundationAlertBuilder.cs" />
+    <Compile Include="BorderRadiusHelpers.cs" />
     <Compile Include="Conventions\FoundationHtmlTagConventions.cs" />
+    <Compile Include="FoundationFormBlockBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TooltipHelpers.cs" />
   </ItemGroup>

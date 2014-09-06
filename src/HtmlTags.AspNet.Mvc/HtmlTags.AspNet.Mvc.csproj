@@ -108,6 +108,7 @@
     <Compile Include="HtmlTagsConfiguration.cs" />
     <Compile Include="IFormBlockBuilder.cs" />
     <Compile Include="LinkHelper.cs" />
+    <Compile Include="ModelStateHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

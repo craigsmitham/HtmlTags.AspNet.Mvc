@@ -63,12 +63,10 @@ namespace HtmlTags.AspNet.Mvc
             // End of MVC code
 
             var tagGeneratorFactory = DependencyResolver.Current.GetService<ITagGeneratorFactory>();
-            ITagGenerator<ElementRequest> tagGenerator = tagGeneratorFactory.GeneratorFor<ElementRequest>();
+            var tagGenerator = tagGeneratorFactory.GeneratorFor<ElementRequest>();
             var request = new ElementRequest(expression.ToAccessor())
             {
                 Model = helper.ViewData.Model,
-
-
             };
 
             var tag = tagGenerator.Build(request, category);
@@ -115,4 +113,6 @@ namespace HtmlTags.AspNet.Mvc
             return generator;
         }
     }
+
+    
 }

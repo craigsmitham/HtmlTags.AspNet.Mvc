@@ -1,5 +1,6 @@
 ﻿@using HtmlTags.AspNet.Mvc
-@model MvcWebsite.Controllers.TestViewModel 
+@using HtmlTags.AspNet.Mvc.Foundation
+@model MvcWebsite.Controllers.TestViewModel
 
 @{
     Layout = null;
@@ -8,12 +9,30 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>title</title>
-    </head>
-    <body>
-        <div>
-              @Html.FormBlock(m => m.HelloWorld)
-        </div>
-    </body>
+<head>
+    <title>title</title>
+</head>
+<body>
+    <div>
+        <h3>Alerts</h3>
+        @Html.SuccessAlert("test")
+        @Html.SuccessAlert(new List<string> { "Test 1", "Test 2" }).BorderRadius()
+
+        @Html.WarningAlert("test")
+        @Html.WarningAlert(new List<string> { "Test 1", "Test 2" }).BorderRounded()
+
+        @Html.ErrorAlert("test")
+        @Html.ErrorAlert(new List<string> { "Test 1", "Test 2" })
+
+        @Html.SecondaryAlert("test")
+        @Html.SecondaryAlert(new List<string> { "Test 1", "Test 2" })
+
+        @Html.InfoAlert("test")
+        @Html.InfoAlert(new List<string> { "Test 1", "Test 2" })
+
+
+
+        @Html.FormBlock(m => m.HelloWorld)
+    </div>
+</body>
 </html>
