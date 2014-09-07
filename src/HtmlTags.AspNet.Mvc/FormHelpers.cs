@@ -92,7 +92,7 @@ namespace HtmlTags.AspNet.Mvc
                 blockTagConfiguraiton(block);
 
             var validation = htmlHelper.Validator(expression);
-            var hasErrors = String.IsNullOrEmpty(validation.Text());
+            var hasErrors = !String.IsNullOrEmpty(validation.Text());
             if (validationTagConfiguration != null)
                 validationTagConfiguration(validation);
 
@@ -114,5 +114,5 @@ namespace HtmlTags.AspNet.Mvc
         }
     }
 
-    
+
 }

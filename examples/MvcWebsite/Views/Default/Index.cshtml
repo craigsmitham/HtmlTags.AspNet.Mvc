@@ -14,6 +14,12 @@
 </head>
 <body>
     <div>
+        <h2>Forms</h2>
+        @using (Html.BeginForm("Index"))
+        {
+            @Html.FormBlock(m => m.HelloWorld)
+            <input type="submit" />
+        }
         <h3>Alerts</h3>
         @Html.SuccessAlert("test")
         @Html.SuccessAlert(new List<string> { "Test 1", "Test 2" }).BorderRadius()
@@ -29,10 +35,6 @@
 
         @Html.InfoAlert("test")
         @Html.InfoAlert(new List<string> { "Test 1", "Test 2" })
-
-
-
-        @Html.FormBlock(m => m.HelloWorld)
     </div>
 </body>
 </html>

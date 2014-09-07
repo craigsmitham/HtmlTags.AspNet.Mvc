@@ -7,6 +7,18 @@ using FubuMVC.Core.UI.Elements;
 
 namespace HtmlTags.AspNet.Mvc.Conventions
 {
+
+    public class SpanValidatorBuilder : IElementBuilder
+    {
+        public HtmlTag Build(ElementRequest request)
+        {
+            return new HtmlTag("span")
+                .AddClass("field-validation-error")
+                .AddClass("text-danger")
+                .Data("valmsg-for", request.ElementId);
+        }
+    }
+
     public class AspNetMvcHtmlConventions : DefaultHtmlConventions
     {
         protected ElementCategoryExpression Validators
@@ -26,6 +38,7 @@ namespace HtmlTags.AspNet.Mvc.Conventions
         {
             if (configurator != null) configurator(this);
 
+            Validators.Always.BuildBy<SpanValidatorBuilder>();
 
             Editors.Always.ModifyWith(er => er.CurrentTag.Id(er.ElementId));
 

@@ -11,7 +11,6 @@ namespace MvcWebsite
             config.UseDefaultHtmlConventions();
             config.UseFoundationConventions(c =>
             {
-                c.Alerts.Always.AddClass("rounded");
             });
         }
     }

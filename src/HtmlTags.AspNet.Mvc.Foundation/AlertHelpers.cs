@@ -68,10 +68,14 @@ namespace HtmlTags.AspNet.Mvc.Foundation
 
         private static HtmlTag Alert(this HtmlHelper htmlHelper, string alertClass, List<string> alertMessages)
         {
-            return alertMessages != null && alertMessages.Any()
-                ? htmlHelper.Alert(alertClass)
-                    .Append("ul", ul => alertMessages.ForEach(m => ul.Append("li", li => li.AppendHtml(m))))
-                : new NoTag();
+            if (alertMessages == null || !alertMessages.Any())
+                return new NoTag();
+
+            if (alertMessages.Count == 1)
+                return htmlHelper.Alert(alertClass, alertMessages.First());
+
+            return htmlHelper.Alert(alertClass)
+                .Append("ul", ul => alertMessages.ForEach(m => ul.Append("li", li => li.AppendHtml(m))));
         }
 
         private static HtmlTag Alert(this HtmlHelper htmlHelper, string alertClass)

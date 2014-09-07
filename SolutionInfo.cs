@@ -3,11 +3,11 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyProductAttribute("HtmlTags.AspNet.Mvc")]
-[assembly: AssemblyVersionAttribute("0.1.7")]
-[assembly: AssemblyFileVersionAttribute("0.1.7.0")]
+[assembly: AssemblyVersionAttribute("0.1.10")]
+[assembly: AssemblyFileVersionAttribute("0.1.10.0")]
 [assembly: ComVisibleAttribute(false)]
 namespace System {
     internal static class AssemblyVersionInformation {
-        internal const string Version = "0.1.7";
+        internal const string Version = "0.1.10";
     }
 }
