@@ -5,7 +5,6 @@
 :Build
 cls
 
-
 SET TARGET="Default"
 
 IF NOT [%1]==[] (set TARGET="%1")

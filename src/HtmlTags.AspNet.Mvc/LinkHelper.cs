@@ -8,7 +8,7 @@ namespace HtmlTags.AspNet.Mvc
 {
     public static class LinkHelper
     {
-        public static HtmlTag Link<TController>(this HtmlHelper helper, Expression<Action<TController>> action, string linkText)
+        public static HtmlTag Link<TController>(this HtmlHelper helper, Expression<Action<TController>> action, Action<HtmlTag> linkConfiguration = null)
             where TController : Controller
         {
             var url = LinkBuilder.BuildUrlFromExpression(
@@ -16,9 +16,17 @@ namespace HtmlTags.AspNet.Mvc
                 RouteTable.Routes, action);
             return new HtmlTag("a", t =>
             {
-                t.Text(linkText);
                 t.Attr("href", url);
+                if (linkConfiguration != null)
+                    linkConfiguration(t);
             });
+        }
+
+
+        public static HtmlTag Link<TController>(this HtmlHelper helper, Expression<Action<TController>> action, string linkText)
+            where TController : Controller
+        {
+            return Link(helper, action, a => a.Text(linkText));
         }
     }
 }
