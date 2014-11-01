@@ -17,6 +17,7 @@ namespace HtmlTags.AspNet.Mvc.Bootstrap
 
             label.Append(input);
             block.Append(label).Append(validaton);
+            block.AddClass("form-group");
             return block;
         }
     }

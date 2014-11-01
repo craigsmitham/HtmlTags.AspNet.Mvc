@@ -98,6 +98,9 @@
     <Compile Include="Conventions\BootstrapHtmlConventions.cs" />
     <Compile Include="Conventions\BootstrapConfigurationHelper.cs" />
     <Compile Include="BootstrapFormBlockBuilder.cs" />
+    <Compile Include="Glyphicon.cs" />
+    <Compile Include="Glyphicons.cs" />
+    <Compile Include="IconHtmlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
