@@ -15,9 +15,13 @@
 <body>
     <div>
         <h2>Forms</h2>
+
         @using (Html.BeginForm("Index"))
         {
             @Html.FormBlock(m => m.HelloWorld)
+
+            @Html.FormBlock(m => m.SomeText)
+            @Html.FormBlock(m => m.SomeTextArea)
             <input type="submit" />
         }
         <h3>Alerts</h3>

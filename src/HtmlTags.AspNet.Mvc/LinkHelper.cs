@@ -9,55 +9,67 @@ namespace HtmlTags.AspNet.Mvc
 
     public static class LinkHelpers
     {
-        public static HtmlTag Link(this HtmlHelper htmlHelper, string url)
+        public static HtmlTag Link(this HtmlHelper htmlHelper, string url, Action<HtmlTag> configure = null)
         {
-            return new HtmlTag("a").Attr("href", url);
+            return Link(a => a.Attr("href", url), configure);
+
+        }
+
+        private static HtmlTag Link(Action<HtmlTag> baseConfigure, Action<HtmlTag> optionalConfigure)
+        {
+            return new HtmlTag("a", a =>
+            {
+                baseConfigure(a);
+                if (optionalConfigure != null)
+                    optionalConfigure(a);
+            });
         }
 
 
-        public static HtmlTag Link(this HtmlHelper htmlHelper, string linkText, string url)
+        public static HtmlTag Link(this HtmlHelper htmlHelper, string linkText, string url, Action<HtmlTag> configure = null)
         {
-            return new HtmlTag("a").Attr("href", url).Text(linkText);
+            return Link(a => a.Attr("href", url).Text(linkText), configure);
         }
 
 
-        public static HtmlTag Link(this HtmlHelper htmlHelper, string actionName, object routeValues)
+        public static HtmlTag Link(this HtmlHelper htmlHelper, string actionName, object routeValues, Action<HtmlTag> configure = null)
         {
-            return Link(htmlHelper, null, actionName, null, routeValues);
+            return Link(htmlHelper, null, actionName, null, routeValues, configure);
         }
 
-        public static HtmlTag Link(this HtmlHelper htmlHelper, string linkText, string actionName, object routeValues)
+        public static HtmlTag Link(this HtmlHelper htmlHelper, string linkText, string actionName, object routeValues, Action<HtmlTag> configure = null)
         {
-            return Link(htmlHelper, linkText, actionName, null, routeValues);
+            return Link(htmlHelper, linkText, actionName, null, routeValues, configure);
         }
 
-        public static HtmlTag Link(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, object routeValues)
+        public static HtmlTag Link(this HtmlHelper htmlHelper, string linkText, string actionName, string controllerName, object routeValues, Action<HtmlTag> configure = null)
         {
             var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
             var url = routeValues != null
                 ? urlHelper.Action(actionName, controllerName, routeValues)
                 : urlHelper.Action(actionName, controllerName);
-            return new HtmlTag("a").Attr("href", url).Text(linkText);
+            return Link(htmlHelper, linkText, url, configure);
         }
 
-        public static HtmlTag Link<TController>(this HtmlHelper helper, Expression<Action<TController>> action, Action<HtmlTag> linkConfiguration = null)
+        public static HtmlTag Link<TController>(this HtmlHelper htmlHelper, Expression<Action<TController>> action, Action<HtmlTag> configure = null)
             where TController : Controller
         {
             var url = LinkBuilder.BuildUrlFromExpression(
-                helper.ViewContext.RequestContext,
+                htmlHelper.ViewContext.RequestContext,
                 RouteTable.Routes, action);
-            return new HtmlTag("a", t =>
-            {
-                t.Attr("href", url);
-                if (linkConfiguration != null)
-                    linkConfiguration(t);
-            });
+            return Link(htmlHelper, url, configure);
         }
 
-        public static HtmlTag Link<TController>(this HtmlHelper helper, Expression<Action<TController>> action, string linkText)
+        public static HtmlTag Link<TController>(this HtmlHelper htmlHelper, string linkText, Expression<Action<TController>> action, Action<HtmlTag> configure = null)
             where TController : Controller
         {
-            return Link(helper, action, a => a.Text(linkText));
+
+            return Link(htmlHelper, action, a =>
+            {
+                a.Text(linkText);
+                if (configure != null)
+                    configure(a);
+            });
         }
     }
 }

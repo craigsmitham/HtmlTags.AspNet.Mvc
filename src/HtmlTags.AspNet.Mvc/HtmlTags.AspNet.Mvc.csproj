@@ -109,6 +109,12 @@
     <Compile Include="Conventions\AspNetMvcHtmlConventions.cs" />
     <Compile Include="Conventions\ElementConstants.cs" />
     <Compile Include="Conventions\EnumDropDownModifier.cs" />
+    <Compile Include="Conventions\HtmlTagAttributeModifier.cs" />
+    <Compile Include="Conventions\ModifyElementRequestAttribute.cs" />
+    <Compile Include="Conventions\SpanValidatorBuilder.cs" />
+    <Compile Include="Conventions\TagHelpers.cs" />
+    <Compile Include="Conventions\TextArea.cs" />
+    <Compile Include="Conventions\TextAreaPropertyNameModifier.cs" />
     <Compile Include="DefaultFormBlockBuilder.cs" />
     <Compile Include="FormHelpers.cs" />
     <Compile Include="HtmlTagsConfiguration.cs" />

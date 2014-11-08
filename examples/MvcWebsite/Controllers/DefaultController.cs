@@ -6,6 +6,8 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Security.AccessControl;
 using System.Web;
 using System.Web.Mvc;
+using HtmlTags;
+using HtmlTags.AspNet.Mvc.Conventions;
 
 namespace MvcWebsite.Controllers
 {
@@ -35,7 +37,19 @@ namespace MvcWebsite.Controllers
 
     public class TestViewModel
     {
+        public TestViewModel()
+        {
+            SomeText = "test";
+            SomeTextArea = "Test 2";
+            HelloWorld = "Test 3";
+        }
+
         [Required(ErrorMessage = "You must say something!")]
         public string HelloWorld { get; set; }
+
+        [TextArea]
+        public string SomeText { get; set; }
+
+        public string SomeTextArea { get; set; }
     }
 }
