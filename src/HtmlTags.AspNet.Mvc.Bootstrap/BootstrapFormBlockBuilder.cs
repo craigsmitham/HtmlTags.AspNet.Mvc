@@ -1,7 +1,3 @@
-using System;
-using System.Linq.Expressions;
-using System.Web.Mvc;
-
 namespace HtmlTags.AspNet.Mvc.Bootstrap
 {
     internal sealed class BootstrapFormBlockBuilder : IFormBlockBuilder
@@ -15,10 +11,7 @@ namespace HtmlTags.AspNet.Mvc.Bootstrap
                 validaton.AddClass("error");
             }
 
-            label.Append(input);
-            block.Append(label).Append(validaton);
-            block.AddClass("form-group");
-            return block;
+            return block.AddClass("form-group").Append(label).Append(input).Append(validaton);
         }
     }
 }
